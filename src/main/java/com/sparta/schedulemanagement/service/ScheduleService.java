@@ -33,24 +33,25 @@ public class ScheduleService {
         return scheduleResponseDto;
     }
 
-    public Schedule readSchedule(Long id) {
-        return scheduleRepository.findById(id).orElseThrow(() ->
-                 new EntityNotFoundException("해당하는 아디를 가진 스케줄이 없습니다."));
+    public ScheduleResponseDto readSchedule(Long id) {
+
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow();
+
+        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
+
+        return scheduleResponseDto;
 
     }
 
     @Transactional
-    public Schedule scheduleUpdate(Long id, ScheduleRequestDto scheduleRequestDto) {
-        Schedule schedule = readSchedule(id);
+    public ScheduleResponseDto modifySchedule(Long id, ScheduleRequestDto scheduleRequestDto) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow();
 
-        if (scheduleRequestDto.getTitle() != null) {
-            schedule.setTitle(scheduleRequestDto.getTitle());
-        }
-        if (scheduleRequestDto.getContent() != null) {
-            schedule.setContent(scheduleRequestDto.getContent());
-        }
+        schedule.modifySchedule(scheduleRequestDto.getTitle(), scheduleRequestDto.getContent());
 
-        return schedule;
+        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
+
+        return scheduleResponseDto;
 
     }
 }

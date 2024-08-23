@@ -11,20 +11,19 @@ import java.util.Date;
 
 
 /**
-CREATE TABLE Schedule
-(
-    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id    BIGINT       NOT NULL,
-    title      VARCHAR(255) NOT NULL,
-    content    TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES User (id)
-);
-*/
+ * CREATE TABLE Schedule
+ * (
+ * id         BIGINT AUTO_INCREMENT PRIMARY KEY,
+ * user_id    BIGINT       NOT NULL,
+ * title      VARCHAR(255) NOT NULL,
+ * content    TEXT,
+ * created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ * updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ * FOREIGN KEY (user_id) REFERENCES User (id)
+ * );
+ */
 @Entity // JPA가 관리할 수 있는 Entity 클래스 지정
 @Getter
-@Setter
 @Table(name = "Schedule") // 매핑할 테이블의 이름을 지정
 @NoArgsConstructor
 public class Schedule extends Timestamped {
@@ -47,4 +46,12 @@ public class Schedule extends Timestamped {
     }
 
 
+    public void modifySchedule(String title, String content) {
+        if (title != null) {
+            this.title = title;
+        }
+        if (content != null) {
+            this.content = content;
+        }
+    }
 }
