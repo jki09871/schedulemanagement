@@ -1,13 +1,13 @@
 package com.sparta.schedulemanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sparta.schedulemanagement.dto.ScheduleRequestDto;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -26,6 +26,7 @@ import java.util.Date;
 @Getter
 @Table(name = "Schedule") // 매핑할 테이블의 이름을 지정
 @NoArgsConstructor
+@AllArgsConstructor
 public class Schedule extends Timestamped {
 
     @Id
@@ -38,11 +39,16 @@ public class Schedule extends Timestamped {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<ScheduleComment> scheduleComments;
+
     public Schedule(ScheduleRequestDto scheduleRequestDto) {
 
         this.username = scheduleRequestDto.getUsername();
         this.title = scheduleRequestDto.getTitle();
         this.content = scheduleRequestDto.getContent();
+
     }
 
 

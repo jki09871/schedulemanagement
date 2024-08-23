@@ -18,19 +18,18 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
 
-
     @PostMapping("/schedules")
-    public ScheduleResponseDto scheduleCreate(@RequestBody ScheduleRequestDto scheduleRequestDto) {
+    public ScheduleResponseDto scheduleCreated(@RequestBody ScheduleRequestDto scheduleRequestDto) {
         return scheduleService.scheduleWrite(scheduleRequestDto);
     }
 
     @GetMapping("/schedules/{id}")
-    public ScheduleResponseDto readSchedule(@PathVariable Long id){
+    public ScheduleResponseDto readSchedule(@PathVariable Long id) {
         return scheduleService.readSchedule(id);
     }
 
     @PutMapping("/schedules/{id}")
-    public ScheduleResponseDto scheduleModify(@PathVariable Long id, @RequestBody ScheduleRequestDto scheduleRequestDto){
-        return scheduleService.modifySchedule(id,  scheduleRequestDto);
+    public ScheduleResponseDto scheduleModify(@PathVariable Long id, @RequestBody ScheduleRequestDto scheduleRequestDto) {
+        return scheduleService.modifySchedule(id, scheduleRequestDto);
     }
 }
