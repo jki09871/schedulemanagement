@@ -24,6 +24,7 @@ public class ScheduleCommentService {
     private final ScheduleCommentRepository commentRepository;
 
     private final ScheduleRepository scheduleRepository;
+
     public ScheduleCommentResponseDto commentCreate(ScheduleCommentRequestDto commentReqDto) {
 
         Schedule schedule = scheduleRepository.findById(commentReqDto.getSchedule_id()).orElseThrow();
@@ -39,10 +40,10 @@ public class ScheduleCommentService {
 
     public List<ScheduleCommentResponseDto> commentFindBy() {
 
-            return commentRepository.findAll()
-                    .stream()
-                    .map(ScheduleCommentResponseDto::new)
-                    .toList();
+        return commentRepository.findAll()
+                .stream()
+                .map(ScheduleCommentResponseDto::new)
+                .toList();
     }
 
     public ScheduleCommentResponseDto commentFindById(Long id) {
@@ -60,5 +61,15 @@ public class ScheduleCommentService {
         scheduleComment.commentsModify(commentReqDto.getContent());
 
         return new ScheduleCommentResponseDto(scheduleComment);
+    }
+
+    @Transactional
+    public String commentDelete(Long id) {
+        ScheduleCommentResponseDto commentResponseDto = commentFindById(id);
+        if (commentResponseDto != null) {
+            commentRepository.deleteById(commentResponseDto.getId());
+            return id + "번 댓글 삭제 완료";
+        }
+        return "";
     }
 }

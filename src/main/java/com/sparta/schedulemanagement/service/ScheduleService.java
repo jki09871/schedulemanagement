@@ -33,6 +33,7 @@ public class ScheduleService {
         return scheduleResponseDto;
     }
 
+    @Transactional
     public ScheduleResponseDto readSchedule(Long id) {
 
         Schedule schedule = scheduleRepository.findById(id).orElseThrow();
