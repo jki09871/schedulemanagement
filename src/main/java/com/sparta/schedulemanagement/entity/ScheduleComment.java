@@ -35,4 +35,7 @@ public class ScheduleComment extends Timestamped{
         this.schedule = schedule;
     }
 
+    public void commentsModify( String content) {
+        this.content = content;
+    }
 }

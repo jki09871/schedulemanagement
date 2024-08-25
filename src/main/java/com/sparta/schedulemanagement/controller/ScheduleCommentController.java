@@ -33,4 +33,10 @@ public class ScheduleCommentController {
         return commentService.commentFindById(id);
     }
 
+    @PutMapping("/comments/{id}")
+    public ScheduleCommentResponseDto commentModify(@PathVariable Long id,
+                                                    @RequestBody ScheduleCommentRequestDto commentReqDto){
+        return commentService.commentModify(id, commentReqDto);
+    }
+
 }

@@ -49,9 +49,7 @@ public class ScheduleService {
 
         schedule.modifySchedule(scheduleRequestDto.getTitle(), scheduleRequestDto.getContent());
 
-        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
-
-        return scheduleResponseDto;
+        return new ScheduleResponseDto(schedule);
 
     }
 }
