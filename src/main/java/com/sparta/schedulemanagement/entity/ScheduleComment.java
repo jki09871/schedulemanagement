@@ -25,7 +25,6 @@ public class ScheduleComment extends Timestamped{
     @ManyToOne
     @JoinColumn(name = "schedule_id")
     @JsonBackReference
-
     private Schedule schedule;
 
 

@@ -24,7 +24,8 @@ public class ScheduleCommentResponseDto {
         this.user_name = comment.getUser_name();
         this.created_at = comment.getCreated_at();
         this.updated_at = comment.getUpdated_at();
-//        this.schedule_id = comment.getSchedule().getId();
+        this.schedule_id = comment.getSchedule().getId();
     }
+
 
 }

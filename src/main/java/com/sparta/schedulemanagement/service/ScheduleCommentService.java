@@ -6,9 +6,13 @@ import com.sparta.schedulemanagement.entity.Schedule;
 import com.sparta.schedulemanagement.entity.ScheduleComment;
 import com.sparta.schedulemanagement.repository.ScheduleCommentRepository;
 import com.sparta.schedulemanagement.repository.ScheduleRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,4 +34,13 @@ public class ScheduleCommentService {
         return new ScheduleCommentResponseDto(comment);
 
     }
+
+    public List<ScheduleCommentResponseDto> commentFindBy() {
+
+            return commentRepository.findAll()
+                    .stream()
+                    .map(ScheduleCommentResponseDto::new)
+                    .toList();
+    }
+
 }
