@@ -28,5 +28,9 @@ public class ScheduleCommentController {
         return commentService.commentFindBy();
     }
 
+    @GetMapping("/comments/{id}")
+    public ScheduleCommentResponseDto commentFindById(@PathVariable Long id){
+        return commentService.commentFindById(id);
+    }
 
 }

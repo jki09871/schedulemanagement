@@ -43,4 +43,10 @@ public class ScheduleCommentService {
                     .toList();
     }
 
+    public ScheduleCommentResponseDto commentFindById(Long id) {
+        return commentRepository.findById(id)
+                .map(ScheduleCommentResponseDto::new)
+                .orElseThrow(() -> new EntityNotFoundException("Comment not found")); // 값이 없을 때 예외 처리
+
+    }
 }
