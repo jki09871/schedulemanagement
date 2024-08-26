@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -40,21 +41,25 @@ public class Schedule extends Timestamped {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE)
-    private List<UserSchedule> userSchedules;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user; // 작성자
+
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<UserSchedule> userSchedules = new ArrayList<>();
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE)
     @JsonManagedReference
-    private List<ScheduleComment> scheduleComments;
+    private List<ScheduleComment> scheduleComments = new ArrayList<>();
 
 
 
 
 
-    public Schedule(ScheduleRequestDto scheduleRequestDto) {
-
+    public Schedule(ScheduleRequestDto scheduleRequestDto, User user) {
         this.title = scheduleRequestDto.getTitle();
         this.content = scheduleRequestDto.getContent();
+        this.user = user;
 
     }
 

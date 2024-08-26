@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -46,5 +47,16 @@ public class User extends Timestamped{
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", userSchedules=" + userSchedules +
+                '}';
+    }
+
 
 }

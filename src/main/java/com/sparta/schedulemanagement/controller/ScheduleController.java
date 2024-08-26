@@ -16,8 +16,8 @@ public class ScheduleController {
 
 
     @PostMapping("/schedules")
-    public ScheduleResponseDto scheduleCreated(@RequestBody ScheduleRequestDto scheduleRequestDto) {
-        return scheduleService.scheduleWrite(scheduleRequestDto);
+    public ScheduleResponseDto scheduleCreated(@RequestBody ScheduleRequestDto scheduleRequestDto, Long userId) {
+        return scheduleService.scheduleWrite(scheduleRequestDto, userId);
     }
 
     @GetMapping("/schedules")
