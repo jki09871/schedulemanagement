@@ -65,8 +65,7 @@ public class ScheduleService {
         if (readSchedule(id) != null){
             scheduleRepository.deleteById(id);
             return id + "번 스케줄 삭제 완료!";
-        }else {
-            return id + "번 스케줄이 없습니다.!";
         }
+        return null;
     }
 }

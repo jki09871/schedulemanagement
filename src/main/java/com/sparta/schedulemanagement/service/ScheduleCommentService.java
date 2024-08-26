@@ -66,6 +66,6 @@ public class ScheduleCommentService {
             commentRepository.deleteById(commentResponseDto.getId());
             return id + "번 댓글 삭제 완료";
         }
-        return "";
+        return null;
     }
 }

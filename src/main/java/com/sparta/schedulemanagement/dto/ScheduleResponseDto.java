@@ -12,7 +12,6 @@ import java.util.List;
 public class ScheduleResponseDto {
 
     private Long id;
-    private String username;
     private String title;
     private String content;
     private LocalDateTime created_at;
@@ -21,7 +20,6 @@ public class ScheduleResponseDto {
 
     public ScheduleResponseDto(Schedule schedule){
         this.id = schedule.getId();
-        this.username = schedule.getUsername();
         this.title = schedule.getTitle();
         this.content = schedule.getContent();
         this.created_at = schedule.getCreatedAt();

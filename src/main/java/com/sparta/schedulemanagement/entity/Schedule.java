@@ -34,20 +34,25 @@ public class Schedule extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "username", nullable = false)
-    private String username;
+
     @Column(name = "title", nullable = false)
     private String title;
     @Column(name = "content", nullable = false)
     private String content;
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE)
+    private List<UserSchedule> userSchedules;
+
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<ScheduleComment> scheduleComments;
 
+
+
+
+
     public Schedule(ScheduleRequestDto scheduleRequestDto) {
 
-        this.username = scheduleRequestDto.getUsername();
         this.title = scheduleRequestDto.getTitle();
         this.content = scheduleRequestDto.getContent();
 
