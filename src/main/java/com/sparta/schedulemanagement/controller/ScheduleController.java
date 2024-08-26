@@ -38,4 +38,9 @@ public class ScheduleController {
     public ScheduleResponseDto scheduleModify(@PathVariable Long id, @RequestBody ScheduleRequestDto scheduleRequestDto) {
         return scheduleService.modifySchedule(id, scheduleRequestDto);
     }
+
+    @DeleteMapping("/schedules/{id}")
+    public String scheduleDelete(@PathVariable("id") Long id) {
+        return scheduleService.scheduleDelete(id);
+    }
 }

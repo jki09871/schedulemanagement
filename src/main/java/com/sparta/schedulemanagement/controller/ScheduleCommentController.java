@@ -39,7 +39,7 @@ public class ScheduleCommentController {
     }
 
     @DeleteMapping("/comments/{id}")
-    public String commentsDelete(@PathVariable Long id){
+    public String commentsDelete(@PathVariable("id") Long id){
         return commentService.commentDelete(id);
     }
 
