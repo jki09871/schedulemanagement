@@ -2,20 +2,16 @@ package com.sparta.schedulemanagement.service;
 
 import com.sparta.schedulemanagement.dto.ScheduleCommentRequestDto;
 import com.sparta.schedulemanagement.dto.ScheduleCommentResponseDto;
-import com.sparta.schedulemanagement.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement.entity.Schedule;
 import com.sparta.schedulemanagement.entity.ScheduleComment;
 import com.sparta.schedulemanagement.repository.ScheduleCommentRepository;
 import com.sparta.schedulemanagement.repository.ScheduleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

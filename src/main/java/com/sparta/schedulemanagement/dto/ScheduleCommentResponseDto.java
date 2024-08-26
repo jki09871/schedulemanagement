@@ -1,11 +1,9 @@
 package com.sparta.schedulemanagement.dto;
 
-import com.sparta.schedulemanagement.entity.Schedule;
 import com.sparta.schedulemanagement.entity.ScheduleComment;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 public class ScheduleCommentResponseDto {
@@ -18,12 +16,13 @@ public class ScheduleCommentResponseDto {
 
     private Long schedule_id;
 
+
     public ScheduleCommentResponseDto(ScheduleComment comment){
         this.id = comment.getId();
         this.content = comment.getContent();
         this.user_name = comment.getUser_name();
-        this.created_at = comment.getCreated_at();
-        this.updated_at = comment.getUpdated_at();
+        this.created_at = comment.getCreatedAt();
+        this.updated_at = comment.getUpdatedAt();
         this.schedule_id = comment.getSchedule().getId();
     }
 

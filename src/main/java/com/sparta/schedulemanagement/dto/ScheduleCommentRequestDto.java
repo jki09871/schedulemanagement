@@ -1,10 +1,6 @@
 package com.sparta.schedulemanagement.dto;
 
-import com.sparta.schedulemanagement.entity.Schedule;
-import com.sparta.schedulemanagement.entity.ScheduleComment;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 public class ScheduleCommentRequestDto {

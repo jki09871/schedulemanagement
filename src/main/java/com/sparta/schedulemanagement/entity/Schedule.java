@@ -3,10 +3,12 @@ package com.sparta.schedulemanagement.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sparta.schedulemanagement.dto.ScheduleRequestDto;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 

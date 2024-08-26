@@ -4,15 +4,13 @@ import com.sparta.schedulemanagement.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagement.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement.entity.Schedule;
 import com.sparta.schedulemanagement.repository.ScheduleRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.security.Key;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +29,15 @@ public class ScheduleService {
         ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
 
         return scheduleResponseDto;
+    }
+
+    @Transactional
+    public Page<ScheduleResponseDto> getSchedulePaging(int page, int size, String sortBy, boolean isAsc) {
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Schedule> scheduleList = scheduleRepository.findAll(pageable);
+        return scheduleList.map(ScheduleResponseDto::new);
     }
 
     @Transactional
