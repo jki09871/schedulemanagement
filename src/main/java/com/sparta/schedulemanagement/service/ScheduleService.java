@@ -57,14 +57,11 @@ public class ScheduleService {
     }
 
     public ScheduleResponseDto readSchedule(Long id) {
-        // Schedule 엔티티를 조회
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Schedule not found"));
 
-        // 유저 정보를 담을 리스트 생성
         List<UserDetailsDto> assignedUsers = new ArrayList<>();
 
-        // 각 UserSchedule에서 User 정보를 추출하여 UserDetailsDto로 변환하고 리스트에 추가
         for (UserSchedule userSchedule : schedule.getUserSchedules()) {
             User user = userSchedule.getUser();
             UserDetailsDto userDetailsDto = new UserDetailsDto(
@@ -74,8 +71,6 @@ public class ScheduleService {
             );
             assignedUsers.add(userDetailsDto);
         }
-
-        // ScheduleResponseDto를 생성하고, 유저 정보를 포함시켜 반환
         return new ScheduleResponseDto(schedule, assignedUsers);
     }
 
@@ -86,9 +81,8 @@ public class ScheduleService {
         schedule.modifySchedule(scheduleRequestDto.getTitle(), scheduleRequestDto.getContent());
 
         return new ScheduleResponseDto(schedule);
-
     }
-
+    @Transactional
     public String scheduleDelete(Long id) {
         if (readSchedule(id) != null){
             scheduleRepository.deleteById(id);

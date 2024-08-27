@@ -33,6 +33,7 @@ public class UserSchedule {
     public UserSchedule(Schedule schedule, User assignedUser) {
         this.schedule = schedule;
         this.user = assignedUser;
+        this.createdAt = schedule.getCreatedAt();
     }
 
     public UserSchedule() {
