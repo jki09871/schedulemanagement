@@ -3,7 +3,7 @@
 ![](image/ERD.png)
 
 ## API 명세서
-
+https://documenter.getpostman.com/view/31128065/2sAXjJ7Dri
 ### Schedule API
 
 | **기능**              | **메서드** | **엔드포인트**                | **요청 파라미터/바디**   | **응답**                 | **응답 코드** |
