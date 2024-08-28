@@ -33,13 +33,15 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
     private final UserScheduleRepository userScheduleRepository;
-
     private final JwtUtil jwtUtil;
 
+    private final WeatherService weatherService;
 
+    @Transactional
     public ScheduleResponseDto scheduleWrite(ScheduleRequestDto scheduleRequestDto, Long userId) {
+        String todayWeather = weatherService.getTodayWeather();
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        Schedule schedule = new Schedule(scheduleRequestDto, user);
+        Schedule schedule = new Schedule(scheduleRequestDto, user, todayWeather);
         scheduleRepository.save(schedule);
 
         // 추가로 일정에 유저들을 배치하는 로직 (예시)

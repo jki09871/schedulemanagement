@@ -39,6 +39,9 @@ public class Schedule extends Timestamped {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "weather")
+    private String todayWeather;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 작성자
@@ -54,9 +57,10 @@ public class Schedule extends Timestamped {
 
 
 
-    public Schedule(ScheduleRequestDto scheduleRequestDto, User user) {
+    public Schedule(ScheduleRequestDto scheduleRequestDto, User user, String todayWeather) {
         this.title = scheduleRequestDto.getTitle();
         this.content = scheduleRequestDto.getContent();
+        this.todayWeather = todayWeather;
         this.user = user;
 
     }

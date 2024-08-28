@@ -3,6 +3,7 @@ package com.sparta.schedulemanagement.controller;
 import com.sparta.schedulemanagement.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagement.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement.service.ScheduleService;
+import com.sparta.schedulemanagement.service.WeatherService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
-
 
     @PostMapping("/schedules")
     public ScheduleResponseDto scheduleCreated(@RequestBody ScheduleRequestDto scheduleRequestDto, Long userId) {

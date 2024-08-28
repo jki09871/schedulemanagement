@@ -35,7 +35,7 @@ public class AuthFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         String url = httpServletRequest.getRequestURI();
 
-        if (StringUtils.hasText(url) && (url.startsWith("/api/users"))) {
+        if (StringUtils.hasText(url) && (url.startsWith("/api/users")|| url.startsWith("/test/web"))) {
             log.info("인증 처리를 하지 않은 URL : " + url);
             chain.doFilter(request, response); // 다음 Filter 로 이동
         } else {
