@@ -3,7 +3,6 @@ package com.sparta.schedulemanagement.service;
 import com.sparta.schedulemanagement.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagement.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement.dto.UserDetailsDto;
-import com.sparta.schedulemanagement.dto.UserResponseDto;
 import com.sparta.schedulemanagement.entity.Schedule;
 import com.sparta.schedulemanagement.entity.User;
 import com.sparta.schedulemanagement.entity.UserSchedule;
@@ -19,9 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -81,8 +78,9 @@ public class ScheduleService {
         schedule.modifySchedule(scheduleRequestDto.getTitle(), scheduleRequestDto.getContent());
 
         return new ScheduleResponseDto(schedule);
+
     }
-    @Transactional
+
     public String scheduleDelete(Long id) {
         if (readSchedule(id) != null){
             scheduleRepository.deleteById(id);

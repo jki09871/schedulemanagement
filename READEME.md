@@ -1,7 +1,6 @@
-![](image/ERD.png)
-
 ## ERD
-![](imge/api.png)
+
+![](image/ERD.png)
 
 ## API 명세서
 
@@ -16,6 +15,7 @@
 | **스케줄 삭제**       | `DELETE`   | `/api/schedules/{id}`     | 요청 파라미터: 스케줄 ID  | 삭제 결과 메시지          | `200: 정상삭제` |
 
 #### 1. 스케줄 생성 API
+
 - **URL**: `/api/schedules`
 - **Method**: `POST`
 - **Request Body**:
@@ -38,6 +38,7 @@
     ```
 
 #### 2. 스케줄 목록 조회 API (페이지네이션)
+
 - **URL**: `/api/schedules`
 - **Method**: `GET`
 - **Request Params**:
@@ -53,9 +54,9 @@
           "id": "Long",
           "title": "string",
           "content": "string",
-          "user_id": "Long",
-          "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-          "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+          "userId": "Long",
+          "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+          "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
         }
       ],
       "pageable": {
@@ -68,6 +69,7 @@
     ```
 
 #### 3. 스케줄 단건 조회 API
+
 - **URL**: `/api/schedules/{id}`
 - **Method**: `GET`
 - **Path Variable**:
@@ -78,13 +80,14 @@
       "id": "Long",
       "title": "string",
       "content": "string",
-      "user_id": "Long",
-      "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-      "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+      "userId": "Long",
+      "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+      "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
     }
     ```
 
 #### 4. 스케줄 수정 API
+
 - **URL**: `/api/schedules/{id}`
 - **Method**: `PUT`
 - **Path Variable**:
@@ -102,13 +105,14 @@
       "id": "Long",
       "title": "string",
       "content": "string",
-      "user_id": "Long",
-      "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-      "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+      "userId": "Long",
+      "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+      "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
     }
     ```
 
 #### 5. 스케줄 삭제 API
+
 - **URL**: `/api/schedules/{id}`
 - **Method**: `DELETE`
 - **Path Variable**:
@@ -121,35 +125,38 @@
 | **기능**              | **메서드** | **엔드포인트**                | **요청 파라미터/바디**   | **응답**                 | **응답 코드** |
 |-----------------------|------------|--------------------------|--------------------------|--------------------------|--------------|
 | **댓글 생성**         | `POST`     | `/api/schedule/comments`  | 요청 바디: 댓글 정보     | 생성된 댓글 정보         | `200: 정상등록` |
-| **댓글 목록 조회**    | `GET`      | `/api/schedule/comments`  | -                        | 댓글 리스트              | `200: 정상조회` |
+| **댓글 목록
+조회**    | `GET`      | `/api/schedule/comments`  | -                        | 댓글 리스트              | `200: 정상조회` |
 | **댓글 단건 조회**    | `GET`      | `/api/schedule/comments/{id}` | 요청 파라미터: 댓글 ID  | 단건 댓글 정보           | `200: 정상조회` |
 | **댓글 수정**         | `PUT`      | `/api/schedule/comments/{id}` | 요청 바디: 수정 정보    | 수정된 댓글 정보         | `200: 정상수정` |
 | **댓글 삭제**         | `DELETE`   | `/api/schedule/comments/{id}` | 요청 파라미터: 댓글 ID  | 삭제 결과 메시지         | `200: 정상삭제` |
 
 #### 1. 댓글 생성 API
+
 - **URL**: `/api/schedule/comments`
 - **Method**: `POST`
 - **Request Body**:
     ```json
     {
-      "schedule_id": "Long",
+      "scheduleId": "Long",
       "content": "string",
-      "user_name": "string"
+      "username": "string"
     }
     ```
 - **Response**:
     ```json
     {
       "id": "Long",
-      "schedule_id": "Long",
+      "scheduleId": "Long",
       "content": "string",
-      "user_name": "string",
-      "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-      "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+      "username": "string",
+      "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+      "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
     }
     ```
 
 #### 2. 댓글 목록 조회 API
+
 - **URL**: `/api/schedule/comments`
 - **Method**: `GET`
 - **Response**:
@@ -157,16 +164,17 @@
     [
       {
         "id": "Long",
-        "schedule_id": "Long",
+        "scheduleId": "Long",
         "content": "string",
-        "user_name": "string",
-        "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-        "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        "username": "string",
+        "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+        "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
       }
     ]
     ```
 
 #### 3. 댓글 단건 조회 API
+
 - **URL**: `/api/schedule/comments/{id}`
 - **Method**: `GET`
 - **Path Variable**:
@@ -175,15 +183,16 @@
     ```json
     {
       "id": "Long",
-      "schedule_id": "Long",
+      "scheduleId": "Long",
       "content": "string",
-      "user_name": "string",
-      "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-      "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+      "username": "string",
+      "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+      "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
     }
     ```
 
 #### 4. 댓글 수정 API
+
 - **URL**: `/api/schedule/comments/{id}`
 - **Method**: `PUT`
 - **Path Variable**:
@@ -198,15 +207,16 @@
     ```json
     {
       "id": "Long",
-      "schedule_id": "Long",
+      "scheduleId": "Long",
       "content": "string",
-      "user_name": "string",
-      "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-      "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+      "username": "string",
+      "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+      "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
     }
     ```
 
 #### 5. 댓글 삭제 API
+
 - **URL**: `/api/schedule/comments/{id}`
 - **Method**: `DELETE`
 - **Path Variable**:
@@ -219,19 +229,23 @@
 | **기능**              | **메서드** | **엔드포인트**                | **요청 파라미터/바디**   | **응답**                 | **응답 코드** |
 |-----------------------|------------|--------------------------|--------------------------|--------------------------|--------------|
 | **유저 생성**         | `POST`     | `/api/users`             | 요청 바디: 유저 정보     | 생성된 유저 정보         | `200: 정상등록` |
-| **유저 목록 조회**    | `GET`      | `/api/users`             | -                        | 유저 리스트              | `200: 정상조회` |
+| **유저 목록
+조회**    | `GET`      | `/api/users`             | -                        | 유저 리스트              | `200: 정상조회` |
 | **유저 단건 조회**    | `GET`      | `/api/users/{id}`        | 요청 파라미터: 유저 ID   | 단건 유저 정보           | `200: 정상조회` |
 | **유저 수정**         | `PUT`      | `/api/users/{id}`        | 요청 바디: 수정 정보     | 수정된 유저 정보         | `200: 정상수정` |
 | **유저 삭제**         | `DELETE`   | `/api/users/{id}`        | 요청 파라미터: 유저 ID   | 삭제 결과 메시지         | `200: 정상삭제` |
 
 #### 1. 유저 생성 API
+
 - **URL**: `/api/users`
 - **Method**: `POST`
 - **Request Body**:
     ```json
     {
       "username": "string",
-      "email": "string"
+      "email": "string",
+      "password" : "string",
+      "role" : "string"
     }
     ```
 - **Response**:
@@ -240,12 +254,14 @@
       "id": "Long",
       "username": "string",
       "email": "string",
-      "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-      "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+      "role" : "string",
+      "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+      "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
     }
     ```
 
 #### 2. 유저 목록 조회 API
+
 - **URL**: `/api/users`
 - **Method**: `GET`
 - **Response**:
@@ -255,33 +271,37 @@
         "id": "Long",
         "username": "string",
         "email": "string",
-        "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-        "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        "role" : "string",
+        "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+        "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
       }
     ]
     ```
 
 #### 3. 유저 단건 조회 API
+
 - **URL**: `/api/users/{id}`
 - **Method**: `GET`
 - **Path Variable**:
-  - `id`: `Long` - 유저 ID
+    - `id`: `Long` - 유저 ID
 - **Response**:
     ```json
     {
       "id": "Long",
       "username": "string",
       "email": "string",
-      "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-      "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+      "role" : "string",
+      "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+      "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
     }
     ```
 
 #### 4. 유저 수정 API
+
 - **URL**: `/api/users/{id}`
 - **Method**: `PUT`
 - **Path Variable**:
-  - `id`: `Long` - 유저 ID
+    - `id`: `Long` - 유저 ID
 - **Request Body**:
     ```json
     {
@@ -295,16 +315,17 @@
       "id": "Long",
       "username": "string",
       "email": "string",
-      "created_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-      "updated_at": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+      "createdAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+      "updatedAt": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
     }
     ```
 
 #### 5. 유저 삭제 API
+
 - **URL**: `/api/users/{id}`
 - **Method**: `DELETE`
 - **Path Variable**:
-  - `id`: `Long` - 유저 ID
+    - `id`: `Long` - 유저 ID
 - **Response**:
-  - `String`: 삭제 결과 메시지
+    - `String`: 삭제 결과 메시지
 

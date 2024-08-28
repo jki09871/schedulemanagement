@@ -11,19 +11,19 @@ public class ScheduleCommentResponseDto {
     private Long id;
     private String content;
     private String user_name;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    private Long schedule_id;
+    private Long scheduleId;
 
 
     public ScheduleCommentResponseDto(ScheduleComment comment){
         this.id = comment.getId();
         this.content = comment.getContent();
         this.user_name = comment.getUser_name();
-        this.created_at = comment.getCreatedAt();
-        this.updated_at = comment.getUpdatedAt();
-        this.schedule_id = comment.getSchedule().getId();
+        this.createdAt = comment.getCreatedAt();
+        this.updatedAt = comment.getUpdatedAt();
+        this.scheduleId = comment.getSchedule().getId();
     }
 
 

@@ -1,5 +1,6 @@
 package com.sparta.schedulemanagement.service;
 
+import com.sparta.schedulemanagement.config.PasswordEncoder;
 import com.sparta.schedulemanagement.dto.UserRequestDto;
 import com.sparta.schedulemanagement.dto.UserResponseDto;
 import com.sparta.schedulemanagement.entity.User;
@@ -10,16 +11,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     public UserResponseDto userCreated(UserRequestDto userReqDto) {
-        User user = new User(userReqDto);
+        String encryption = passwordEncoder.encode(userReqDto.getPassword());
+        UserRequestDto userRequestDto = new UserRequestDto(userReqDto, encryption);
+        User user = new User(userRequestDto);
         userRepository.save(user);
         return new UserResponseDto(user);
     }
@@ -52,4 +55,5 @@ public class UserService {
         }
         return null;
     }
+
 }

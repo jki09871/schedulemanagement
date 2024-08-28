@@ -6,8 +6,6 @@ import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -32,9 +30,15 @@ public class User extends Timestamped{
     @OneToMany(mappedBy = "user")
     private List<UserSchedule> userSchedules;
 
+    @Column(nullable = false)
+    private String password;
+
+
+
     public User(UserRequestDto userRequestDto){
         this.username = userRequestDto.getUsername();
         this.email = userRequestDto.getEmail();
+        this.password = userRequestDto.getPassword();
     }
 
     public void modifyUser(UserRequestDto userRequestDto){

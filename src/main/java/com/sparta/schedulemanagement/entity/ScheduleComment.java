@@ -3,6 +3,7 @@ package com.sparta.schedulemanagement.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sparta.schedulemanagement.dto.ScheduleCommentRequestDto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "schedule_comment") // 매핑할 테이블의 이름을 지정
 @NoArgsConstructor
+@AllArgsConstructor
 public class ScheduleComment extends Timestamped{
 
     @Id
@@ -29,9 +31,8 @@ public class ScheduleComment extends Timestamped{
 
 
     public ScheduleComment(ScheduleCommentRequestDto comment, Schedule schedule){
-        this.id = comment.getId();
         this.content = comment.getContent();
-        this.user_name = comment.getUser_name();
+        this.user_name = comment.getUsername();
         this.schedule = schedule;
     }
 

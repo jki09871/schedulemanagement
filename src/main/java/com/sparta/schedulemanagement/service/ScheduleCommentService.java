@@ -23,7 +23,7 @@ public class ScheduleCommentService {
 
     public ScheduleCommentResponseDto commentCreate(ScheduleCommentRequestDto commentReqDto) {
 
-        Schedule schedule = scheduleRepository.findById(commentReqDto.getSchedule_id()).orElseThrow();
+        Schedule schedule = scheduleRepository.findById(commentReqDto.getScheduleId()).orElseThrow();
 
         ScheduleComment comment = new ScheduleComment(commentReqDto, schedule);
 
