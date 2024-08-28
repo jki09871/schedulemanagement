@@ -33,12 +33,17 @@ public class User extends Timestamped{
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRoleEnum role;
+
 
 
     public User(UserRequestDto userRequestDto){
         this.username = userRequestDto.getUsername();
         this.email = userRequestDto.getEmail();
         this.password = userRequestDto.getPassword();
+        this.role = userRequestDto.getRole();
     }
 
     public void modifyUser(UserRequestDto userRequestDto){

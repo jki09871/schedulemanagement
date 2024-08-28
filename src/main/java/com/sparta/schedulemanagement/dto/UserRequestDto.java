@@ -1,5 +1,6 @@
 package com.sparta.schedulemanagement.dto;
 
+import com.sparta.schedulemanagement.entity.UserRoleEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -12,10 +13,17 @@ public class UserRequestDto {
     private String username;
     private String password;
 
-    public UserRequestDto(UserRequestDto userRequestDto, String encryption){
+    private boolean admin = false;
+
+    private String adminToken = "";
+    private UserRoleEnum role;
+
+    public UserRequestDto(UserRequestDto userRequestDto, String encryption, UserRoleEnum role){
         this.email = userRequestDto.getEmail();
         this.username = userRequestDto.getUsername();
         this.password = encryption;
+        this.role = role;
     }
+
 
 }

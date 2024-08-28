@@ -3,6 +3,7 @@ package com.sparta.schedulemanagement.controller;
 import com.sparta.schedulemanagement.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagement.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement.service.ScheduleService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +36,14 @@ public class ScheduleController {
     }
 
     @PutMapping("/schedules/{id}")
-    public ScheduleResponseDto scheduleModify(@PathVariable Long id, @RequestBody ScheduleRequestDto scheduleRequestDto) {
-        return scheduleService.modifySchedule(id, scheduleRequestDto);
+    public ScheduleResponseDto scheduleModify(@PathVariable Long id,
+                                              @RequestBody ScheduleRequestDto scheduleRequestDto,
+                                              HttpServletRequest req) {
+        return scheduleService.modifySchedule(id, scheduleRequestDto, req);
     }
 
     @DeleteMapping("/schedules/{id}")
-    public String scheduleDelete(@PathVariable("id") Long id) {
-        return scheduleService.scheduleDelete(id);
+    public String scheduleDelete(@PathVariable("id") Long id, HttpServletRequest req) {
+        return scheduleService.scheduleDelete(id, req);
     }
 }

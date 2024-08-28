@@ -5,17 +5,23 @@ import com.sparta.schedulemanagement.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement.dto.UserDetailsDto;
 import com.sparta.schedulemanagement.entity.Schedule;
 import com.sparta.schedulemanagement.entity.User;
+import com.sparta.schedulemanagement.entity.UserRoleEnum;
 import com.sparta.schedulemanagement.entity.UserSchedule;
+import com.sparta.schedulemanagement.jwt.JwtUtil;
 import com.sparta.schedulemanagement.repository.ScheduleRepository;
 import com.sparta.schedulemanagement.repository.UserRepository;
 import com.sparta.schedulemanagement.repository.UserScheduleRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +33,8 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
     private final UserScheduleRepository userScheduleRepository;
+
+    private final JwtUtil jwtUtil;
 
 
     public ScheduleResponseDto scheduleWrite(ScheduleRequestDto scheduleRequestDto, Long userId) {
@@ -72,20 +80,45 @@ public class ScheduleService {
     }
 
     @Transactional
-    public ScheduleResponseDto modifySchedule(Long id, ScheduleRequestDto scheduleRequestDto) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow();
+    public ScheduleResponseDto modifySchedule(Long id, ScheduleRequestDto scheduleRequestDto, HttpServletRequest req) {
 
-        schedule.modifySchedule(scheduleRequestDto.getTitle(), scheduleRequestDto.getContent());
+        UserRoleEnum role = adminCheck(req);
 
-        return new ScheduleResponseDto(schedule);
+        if (UserRoleEnum.ADMIN.equals(role)) {
+            Schedule schedule = scheduleRepository.findById(id).orElseThrow();
 
+            schedule.modifySchedule(scheduleRequestDto.getTitle(), scheduleRequestDto.getContent());
+            return new ScheduleResponseDto(schedule);
+        }
+         throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You do not have administrator privileges.");
     }
 
-    public String scheduleDelete(Long id) {
-        if (readSchedule(id) != null){
-            scheduleRepository.deleteById(id);
-            return id + "번 스케줄 삭제 완료!";
+
+    public String scheduleDelete(Long id, HttpServletRequest req) {
+        UserRoleEnum role = adminCheck(req);
+
+        if (UserRoleEnum.ADMIN.equals(role)) {
+
+            if (readSchedule(id) != null) {
+                scheduleRepository.deleteById(id);
+                return id + "번 스케줄 삭제 완료!";
+            }
+            return null;
         }
-        return null;
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You do not have administrator privileges.");
+    }
+
+    public UserRoleEnum adminCheck(HttpServletRequest req){
+        String token = jwtUtil.getTokenFromRequest(req);
+        String roleStr = jwtUtil.extractUserRole(token);
+
+        UserRoleEnum role;
+        try {
+            role = UserRoleEnum.valueOf(roleStr);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid role in token.");
+        }
+
+        return role;
     }
 }

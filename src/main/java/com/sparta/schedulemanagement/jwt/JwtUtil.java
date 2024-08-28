@@ -1,5 +1,6 @@
 package com.sparta.schedulemanagement.jwt;
 
+import com.sparta.schedulemanagement.entity.UserRoleEnum;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -26,7 +27,7 @@ public class JwtUtil {
     // Header KEY 값
     public static final String AUTHORIZATION_HEADER = "Authorization";
 //    // 사용자 권한 값의 KEY
-//    public static final String AUTHORIZATION_KEY = "auth";
+    public static final String AUTHORIZATION_KEY = "auth";
     // Token 식별자
     public static final String BEARER_PREFIX = "Bearer ";
     // 토큰 만료시간
@@ -47,13 +48,13 @@ public class JwtUtil {
     }
 
     // 토큰 생성
-    public String createToken(String username /*,UserRoleEnum role*/) {
+    public String createToken(String username , UserRoleEnum role) {
         Date date = new Date();
 
         return BEARER_PREFIX +
                 Jwts.builder()
                         .setSubject(username) // 사용자 식별자값(ID)
-//                        .claim(AUTHORIZATION_KEY, role) // 사용자 권한
+                        .claim(AUTHORIZATION_KEY, role) // 사용자 권한
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME)) // 만료 시간
                         .setIssuedAt(date) // 발급일
                         .signWith(key, signatureAlgorithm) // 암호화 알고리즘
@@ -124,5 +125,22 @@ public class JwtUtil {
             }
         }
         return null;
+    }
+
+    public String extractUserRole(String token) {
+        // 토큰에서 Bearer 접두어 제거
+        String tokenWithoutBearer = token.replace(BEARER_PREFIX, "");
+
+        // JWT 토큰 파싱하여 Claims 추출
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(tokenWithoutBearer)
+                .getBody();
+
+        // 권한 정보 추출
+        String role = claims.get(AUTHORIZATION_KEY, String.class);
+
+        return role;
     }
 }

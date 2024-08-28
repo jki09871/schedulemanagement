@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("/users")
     public UserResponseDto userCreated(@RequestBody UserRequestDto userReqDto, HttpServletResponse res) {
         // Jwt 생성
-        String token = jwtUtil.createToken(userReqDto.getUsername());
+        String token = jwtUtil.createToken(userReqDto.getUsername(), userReqDto.getRole());
 
         // Jwt 쿠키 저장
         jwtUtil.addJwtToCookie(token, res);
@@ -39,27 +39,6 @@ public class UserController {
         return userService.userCreated(userReqDto);
     }
 
-    @GetMapping("/users/get-jwt")
-    public String getJwt(@CookieValue(JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
-        // JWT 토큰 substring
-        String token = jwtUtil.substringToken(tokenValue);
-
-        // 토큰 검증
-        if (!jwtUtil.validateToken(token)) {
-            throw new IllegalArgumentException("Token Error");
-        }
-
-        // 토큰에서 사용자 정보 가져오기
-        Claims info = jwtUtil.getUserInfoFromToken(token);
-        // 사용자 username
-        String username = info.getSubject();
-        System.out.println("username = " + username);
-        // 사용자 권한
-//        String authority = (String) info.get(JwtUtil.AUTHORIZATION_KEY);
-//        System.out.println("authority = " + authority);
-
-        return "getJwt : " + username;
-    }
 
     @PostMapping("/users/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res) {

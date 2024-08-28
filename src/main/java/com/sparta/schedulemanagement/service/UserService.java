@@ -5,9 +5,11 @@ import com.sparta.schedulemanagement.dto.LoginRequestDto;
 import com.sparta.schedulemanagement.dto.UserRequestDto;
 import com.sparta.schedulemanagement.dto.UserResponseDto;
 import com.sparta.schedulemanagement.entity.User;
+import com.sparta.schedulemanagement.entity.UserRoleEnum;
 import com.sparta.schedulemanagement.jwt.JwtUtil;
 import com.sparta.schedulemanagement.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +17,46 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtil jwtUtil;
 
-    public UserResponseDto userCreated(UserRequestDto userReqDto) {
-        String encryption = passwordEncoder.encode(userReqDto.getPassword());
-        UserRequestDto userRequestDto = new UserRequestDto(userReqDto, encryption);
+    public UserResponseDto userCreated(UserRequestDto requestDto) {
+        
+        String password = passwordEncoder.encode(requestDto.getPassword());
+
+        // 회원 중복 확인
+        Optional<User> checkUsername = userRepository.findByUsername(requestDto.getUsername());
+        if (checkUsername.isPresent()) {
+            throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
+        }
+
+        // email 중복확인
+        Optional<User> checkEmail = userRepository.findByEmail(requestDto.getEmail());
+        if (checkEmail.isPresent()) {
+            throw new IllegalArgumentException("중복된 Email 입니다.");
+        }
+
+        // 사용자 ROLE 확인
+        UserRoleEnum role = UserRoleEnum.USER;
+        if (requestDto.isAdmin()) {
+            if (!ADMIN_TOKEN.equals(requestDto.getAdminToken())) {
+                throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
+            }
+            role = UserRoleEnum.ADMIN;
+        }
+
+        UserRequestDto userRequestDto = new UserRequestDto(requestDto, password, role);
         User user = new User(userRequestDto);
+        
         userRepository.save(user);
         return new UserResponseDto(user);
     }
@@ -75,10 +103,11 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
+
         //JWT 생성 및 쿠키에 저장
-        String token = jwtUtil.createToken(user.getUsername());
-        System.out.println("token = " + token);
+        String token = jwtUtil.createToken(user.getUsername(), user.getRole());
         jwtUtil.addJwtToCookie(token, res);
         res.setHeader("Authorization", "Bearer " + token);
+        System.out.println("token = " + token);
     }
 }

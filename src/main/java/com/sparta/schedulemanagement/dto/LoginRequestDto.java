@@ -1,5 +1,6 @@
 package com.sparta.schedulemanagement.dto;
 
+import com.sparta.schedulemanagement.entity.UserRoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
